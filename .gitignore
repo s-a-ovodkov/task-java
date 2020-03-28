@@ -137,10 +137,7 @@ $RECYCLE.BIN/
 */.settings/org.eclipse.jdt.apt.core.prefs
 */.settings/org.eclipse.jdt.core.prefs
 */.settings/org.eclipse.m2e.core.prefs
-*/.idea/compiler.xml
-*/.idea/encodings.xml
-*/.idea/misc.xml
-*/.idea/modules.xml
-*/.idea/vcs.xml
-*/.idea/codeStyles/codeStyleConfig.xml
-*/.idea/workspace.xml
+*/.idea/*
+*/.gradle
+*/gradlew
+*/gradlew.bat
