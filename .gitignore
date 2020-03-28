@@ -139,5 +139,7 @@ $RECYCLE.BIN/
 */.settings/org.eclipse.m2e.core.prefs
 */.idea/*
 */.gradle
+*/build/
+*/gradle/
 */gradlew
 */gradlew.bat
