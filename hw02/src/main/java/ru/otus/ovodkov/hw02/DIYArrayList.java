@@ -15,7 +15,7 @@ public class DIYArrayList<T> implements List<T>, RandomAccess, Serializable {
     private static final Object[] EMPTY_ELEMENT_DATA = new Object[0];
     private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = new Object[0];
 
-    Object[] elementData;
+    private Object[] elementData;
     private int size;
 
     /**
