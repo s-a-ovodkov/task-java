@@ -140,8 +140,7 @@ $RECYCLE.BIN/
 .gradle/
 */.gradle
 */build/
-gradle/
-*/gradle/
+build/
 gradlew
 gradlew.bat
 */gradlew
