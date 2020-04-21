@@ -8,3 +8,4 @@
 
 * [Задание №1](https://github.com/Gravonere/2020-03-otus-java-Ovodkov/tree/master/hw01)
 * [Задание №2](https://github.com/Gravonere/2020-03-otus-java-Ovodkov/tree/master/hw02)
+* [Задание №3](https://github.com/Gravonere/2020-03-otus-java-Ovodkov/tree/master/hw03)
