@@ -23,7 +23,7 @@ public class TestRunner {
     private int countTest;
     private int testExceptionCount;
 
-    private String classString;
+    private final String classString;
 
     public TestRunner(String classString) {
         this.classString = classString;
@@ -45,9 +45,6 @@ public class TestRunner {
         } catch (ClassNotFoundException | NoSuchMethodException exc) {
             System.out.println("Указанный тест не найден.");
             this.testSuccessfulCount++;
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException exc) {
-            System.out.println("У теста отсутствует конструктор по умолчанию.");
-            this.testExceptionCount++;
         } catch (Exception exc) {
             this.testExceptionCount++;
         }
