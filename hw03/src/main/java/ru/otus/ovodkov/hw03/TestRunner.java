@@ -23,6 +23,10 @@ public class TestRunner {
     private int countTest;
     private int testExceptionCount;
 
+    private Constructor constructor;
+    private List<Method> beforeMethods;
+    private List<Method> afterMethods;
+
     private final String classString;
 
     public TestRunner(String classString) {
@@ -32,20 +36,17 @@ public class TestRunner {
     public void runTests() {
         try {
             Class<?> clazz = Class.forName(this.classString);
-            Constructor constructor = clazz.getDeclaredConstructor();
+            this.constructor = clazz.getDeclaredConstructor();
             Method[] methods = clazz.getDeclaredMethods();
             List<Method> testMethods = getMethodsWithSpecificAnnotation(methods, Test.class);
-            List<Method> beforeMethods = getMethodsWithSpecificAnnotation(methods, Before.class);
-            List<Method> afterMethods = getMethodsWithSpecificAnnotation(methods, After.class);
+            this.beforeMethods = getMethodsWithSpecificAnnotation(methods, Before.class);
+            this.afterMethods = getMethodsWithSpecificAnnotation(methods, After.class);
             for (Method testMethod : testMethods) {
                 this.countTest++;
-                runTest(testMethod, constructor, beforeMethods, afterMethods);
-                this.testSuccessfulCount++;
+                runTest(testMethod);
             }
         } catch (ClassNotFoundException | NoSuchMethodException exc) {
             System.out.println("Указанный тест не найден.");
-            this.testSuccessfulCount++;
-        } catch (Exception exc) {
             this.testExceptionCount++;
         }
     }
@@ -64,19 +65,20 @@ public class TestRunner {
                 .collect(Collectors.toList());
     }
 
-    private void runTest(Method method,
-                         Constructor constructor,
-                         List<Method> beforeMethods,
-                         List<Method> afterMethods)
-            throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    private void runTest(Method method) {
+        try {
+            Object object = this.constructor.newInstance();
+            for (Method beforeMethod : this.beforeMethods) {
+                beforeMethod.invoke(object);
+            }
+            method.invoke(object);
+            for (Method afterMethod : this.afterMethods) {
+                afterMethod.invoke(object);
+            }
+            this.testSuccessfulCount++;
+        } catch (Exception exc) {
+            this.testExceptionCount++;
+        }
 
-        Object object = constructor.newInstance();
-        for (Method beforeMethod : beforeMethods) {
-            beforeMethod.invoke(object);
-        }
-        method.invoke(object);
-        for (Method afterMethod : afterMethods) {
-            afterMethod.invoke(object);
-        }
     }
 }
