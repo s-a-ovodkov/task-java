@@ -68,17 +68,21 @@ public class TestRunner {
     private void runTest(Method method) {
         try {
             Object object = this.constructor.newInstance();
-            for (Method beforeMethod : this.beforeMethods) {
-                beforeMethod.invoke(object);
+            try {
+                for (Method beforeMethod : this.beforeMethods) {
+                    beforeMethod.invoke(object);
+                }
+                method.invoke(object);
+                this.testSuccessfulCount++;
+            } catch (Exception exc) {
+                this.testExceptionCount++;
+            } finally {
+                for (Method afterMethod : this.afterMethods) {
+                    afterMethod.invoke(object);
+                }
             }
-            method.invoke(object);
-            for (Method afterMethod : this.afterMethods) {
-                afterMethod.invoke(object);
-            }
-            this.testSuccessfulCount++;
-        } catch (Exception exc) {
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             this.testExceptionCount++;
         }
-
     }
 }
