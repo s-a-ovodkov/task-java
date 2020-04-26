@@ -77,8 +77,12 @@ public class TestRunner {
             } catch (Exception exc) {
                 this.testExceptionCount++;
             } finally {
-                for (Method afterMethod : this.afterMethods) {
-                    afterMethod.invoke(object);
+                try {
+                    for (Method afterMethod : this.afterMethods) {
+                        afterMethod.invoke(object);
+                    }
+                } catch (IllegalAccessException | InvocationTargetException exc) {
+                    // падение при работе after методов не учитываем
                 }
             }
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
