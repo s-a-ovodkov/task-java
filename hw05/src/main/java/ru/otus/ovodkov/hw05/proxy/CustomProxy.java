@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Ovodkov Sergey
@@ -24,7 +26,7 @@ public class CustomProxy {
     static class TestInvocationHandler implements InvocationHandler {
 
         private final TestLogging testLogging;
-        private String[] annotationLogMethodNames;
+        private Map<Integer, String> annotationLogMethodNames;
 
         public TestInvocationHandler(TestLogging testLogging) {
             this.testLogging = testLogging;
@@ -33,18 +35,15 @@ public class CustomProxy {
                             Arrays.stream(method.getDeclaredAnnotations())
                                     .anyMatch(annotation -> annotation.annotationType().getSimpleName().equals("Log"))
                     )
-                    .map(Method::getName)
-                    .toArray(String[]::new);
+                    .collect(Collectors.toMap(Method::hashCode, Method::getName));
         }
 
         @Override
         public Object invoke(Object o, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
 
-            boolean isNotLogMethod = Arrays
-                    .stream(annotationLogMethodNames)
-                    .noneMatch(method.getName()::equals);
+            boolean isLogMethod = annotationLogMethodNames.containsValue(method.getName());
 
-            if (isNotLogMethod)
+            if (!isLogMethod)
                 return method.invoke(testLogging, args);
 
             StringBuilder params = new StringBuilder();
