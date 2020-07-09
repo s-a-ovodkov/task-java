@@ -2,7 +2,7 @@
 -------------------------------
 Мониторинг памяти:
 
-![G1 GC](hw04/Сonclusions/G1gc.png)
+![G1 GC](Сonclusions/G1gc.png)
 
 ![Serial GC](hw04/Сonclusions/SerialGC.png)
 
