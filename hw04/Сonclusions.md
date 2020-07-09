@@ -4,7 +4,7 @@
 
 ![G1 GC](Сonclusions/G1gc.png)
 
-![Serial GC](hw04/Сonclusions/SerialGC.png)
+![Serial GC](Сonclusions/SerialGC.png)
 
 ##### Обобщенные временные показатели:
 
@@ -25,9 +25,9 @@
 | 400 - 500       | -         | -       | 2         | 0.05%    |
 | 500 - 600       | -         | -       | 2         | 0.05%    |
 
-![G1GC Duration Time Range](hw04/Сonclusions/G1GCTimeRange.png)
+![G1GC Duration Time Range](Сonclusions/G1GCTimeRange.png)
 
-![SerialGC Duration Time Range](hw04/Сonclusions/SerialGCTimeRange.png)
+![SerialGC Duration Time Range](Сonclusions/SerialGCTimeRange.png)
 
 ##### Сравнение операций Full GC:
 
